@@ -112,6 +112,7 @@ Hyperspectral Classifier:
 Masking
 * Libraries spectral, numpy, scipy, pandas, sklearn, skimage, matplotlib, seaborn, joblib, 
 * Connections:
+    * hyperspectrum_models->Masker
 * Desciption: Image preprocessing tool for the hyperspectral "crate" data. Classifies cluster of rocks. 
 * Process:
     * Load and Visualize Data:
@@ -173,10 +174,8 @@ Masking
         *  Apply denoise_wavelet (restoration-skimage), applies wavelet-based denoising (wavelet transform).
         *  Clips the round(yHat) to be in between 0 and 1.
         *  Plot the original picture and the results tmp (image + masked (yHat)). tmp = img_rgb.copy(); tmp[~yHat.astype(bool)] = np.nan.
-        
-    * 
-* 
-
+    *  Validation:
+        *  Use Masker python file to run the image.     
 
 ```mermaid
 
