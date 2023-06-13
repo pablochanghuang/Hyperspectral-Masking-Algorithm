@@ -136,6 +136,7 @@ Masking
         *  Fit and set hyperT to the pl transform to hypr with .fit_transform().
         *  Plot bars of the pcs.explained_variance_ratio of the first 5 components.
         *  Create a dataframe and plot with sns.pairplot the hyprT.sample(1000) . Shows the correlations between components.
+    *  K-Means clustering:
         * Create and set nlf to the Nystroem(learn-scikit), kernel matrix approximations from subset training set, kernel='rbf', gamma=0.01, n_components=100, random_state=1234.
         * Create and set kM Pipeline with first nlf and the KMeans cluster to n = 5 clusters, random_state=1234.
         * Create H as the hypr_c195.reshape(-1,411), and select just swir range H[:,swir_range], and apply the pl transform.
@@ -145,10 +146,34 @@ Masking
         * Set the im_labels[~mask_c195] values to np.nan.
         * Create v, a color bar object with get.cmap('jet',n_clusters)
         * Plot the im_labels with cmap=v and vmin=-0.5, vmax=n_clusters-0.5. and colorbar ticks = np.arange (0,n_clusters).
-    * 
-    * K-Means clustering:
-    * Labeling by hand:
-    * Neural network classifier:
+    * Labeling by hand: Add to hand labels for trainning data.
+        * Create clusters=[0,3,]
+        * Create a Ilv1 to the same size of labels == to clusters[0].
+        * Loop through all of the lenght of the clusters and set Ilv1 = to either 1 or 0 if they based on if Ilv1 and clusters[i] match in value, for 0,1, and 2.
+        * Set Hlv2 to be the H[Ilv1] for to select all clusters 0.
+        * Create clm2 a new KMeans object with n_clusters=1, random_state=1234.
+        * Fit the clm2 to the nlf.trandorm of Hlv2.
+        * Create kM2 a Pipeline with first the nlf as features, and clm2 as features.
+        * Set the results as labels2, kM2.predict(H).astype(float).
+        * Set labels2[~Ilv1]= np.nan to get rid of all non cluster 0 or 3.
+        * Reshape labels2 to reshape(hypr_shape[:2]).
+        * Set [~mask_c195] = np.nan to get rid of all outside initial hand mask.
+        * Create v2, color bar object with get.cmap('jet',nc2)
+        * Plot the labels2 with cmap=v and vmin=-0.5, vmax=n_c2-0.5. and colorbar.
+        * Select valid clusters by adding to clusters2=[]
+        * Follow similar procedure than first clusters, create y=(labels2 == clusters2[0]), loop through the len of clusters2, set y to either 0 or 1 depending of when y and labels2=clusters2[i] match.
+        * Create plot of y, cmap='binary_r'.
+        * Reshape y.reshape(-1), define df dataframe of H and set df['label']=y.
+        * Create a pairplot with df.sample(1000), hue='label'. Plot different components and the different labels.
+    * Neural network classifier: Construct general classifier applied to entire image.
+        *   MLPClassifier: Allows you to specify the number of hidden layers, the number of nodes per layer, and the activation function used by each node. It also supports regularization and early stopping to prevent overfitting.   
+        *  Create clf a MLP Classifier object (neural_network-sklearn), implements a multi-layer perceptron (MLP) algorithm for classification, with alpha=1e-4, and verbose=True.
+        *  Fit clf to (H,y) (last labels).
+        *  Set yHat to the predicted from clf.predict(H). Reshape it to hypr_shape[:2].
+        *  Apply denoise_wavelet (restoration-skimage), applies wavelet-based denoising (wavelet transform).
+        *  Clips the round(yHat) to be in between 0 and 1.
+        *  Plot the original picture and the results tmp (image + masked (yHat)). tmp = img_rgb.copy(); tmp[~yHat.astype(bool)] = np.nan.
+        
     * 
 * 
 
