@@ -22,12 +22,29 @@ class Masker:
         - wavelength_range : tuple of length 2, range of usable wavelengths if relevant.
     '''
     def __init__(self, model_pipeline, wavelength_range=None):
+        '''
+        Description: Creates a model pipeline used to mask the image to differentiate useful
+        data to background in an specific wavelenght range. 
+        Inputs:
+            - model_pipeline : Pipeline object with .predict member function that classifies
+            useful core data from background.
+            - wavelength_range : tuple of length 2, range of usable wavelengths if relevant 
+            (Mostlly SWIR range in Masking Algorithm ).
+        Outputs:
+            None, saved class attributes.
+        '''
         self._model = model_pipeline
         self._idx = wavelength_range
         
     def __call__(self, image):
-        '''produces a mask for an image.
         '''
+        Description: Produces a mask with the model_pipeline and .predict for the image input.
+        Inputs:
+            - image : Spectral image object, hyperspectral image opened and load with envi (spectral).
+        Outputs:
+            - yhat : Mask binary output dividing data (1) form background (0).
+        '''
+        
         if self._idx is not None:
             image = image[:,:,self._idx]
         yhat = self._model.predict(
