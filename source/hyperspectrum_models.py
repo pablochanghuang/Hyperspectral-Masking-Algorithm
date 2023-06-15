@@ -41,6 +41,7 @@ class Masker:
         Description: Produces a mask with the model_pipeline and .predict for the image input.
         Inputs:
             - image : Spectral image object, hyperspectral image opened and load with envi (spectral).
+                # the Masker class is callable and just needs an array of shape [x,y, 411] 
         Outputs:
             - yhat : Mask binary output dividing data (1) form background (0).
         '''
