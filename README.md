@@ -3,3 +3,12 @@ Machine Learning Algorithm to automate the construction of masks, which are othe
 
 
 Data Drive: https://mines0-my.sharepoint.com/:f:/g/personal/pchanghuang_mines_edu/Eq-X_UR307tGvz_oriWto-UBRN_RtDFpWDVlmae1gnhCyg?e=Ptyp8r
+
+Directories:
+* binaries: .joblib files that contains the trained mask model for later usage.
+* examples: .pynb files with example code with description of how the hyperspectral masking and mineralogical algorithms work. 
+* source: .py files for the masking and mineralogical algorithm workflow.
+* tests: .py files and data for built-in tests to check the integrity of the code.
+
+Files:
+* mdl.joblib: 
