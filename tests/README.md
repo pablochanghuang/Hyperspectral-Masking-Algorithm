@@ -5,3 +5,5 @@ Files:
 * integrationTest.py:
 
 How to run:
+* unitTest.py:
+* integrationTest.py:
